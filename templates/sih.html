@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main</title>
+    <link rel="stylesheet" href="C:/Users/DELL/PycharmProjects/sgp/templates/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+</head>
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Dosis:wght@200..800&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900&display=swap');
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f7ff;
+    }
+
+    .container {
+        width: 90%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    /* Header Section */
+    .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        margin-bottom: 30px;
+    }
+
+    .header-content {
+        max-width: 600px;
+    }
+
+    .header-content h1 {
+        font-size: 24px;
+        color: #4A4A4A;
+    }
+
+    .header-content p {
+        margin-top: 10px;
+        font-size: 14px;
+        color: #7d7d7d;
+        line-height: 1.6;
+    }
+
+    .header-image img {
+        width: 200px;
+        height: auto;
+    }
+
+    /* Upload Section */
+    .upload-section {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 30px;
+    }
+
+    .upload-btn {
+        background-color: #d4e2ff;
+        border: none;
+        border-radius: 12px;
+        padding: 20px 40px;
+        font-size: 18px;
+        color: #5356fb;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+    }
+
+    /* Image Processing Section */
+    .image-processing {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+    }
+
+    .image-box {
+        background-color: white;
+        padding: 10px; /* Reduced padding */
+        border-radius: 12px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        flex: 1 1 220px; /* Allow flexibility while maintaining minimum width */
+        margin: 10px; /* Space around images */
+    }
+
+    .image-box h2 {
+        font-size: 16px;
+        margin-bottom: 10px; /* Reduced margin */
+        color: #5356fb;
+    }
+
+    .image-box img {
+        width: 100%; /* Set to 100% to control size */
+        height: auto;
+        border-radius: 8px;
+    }
+
+    .open-btn,
+    .download-btn {
+        margin-top: 10px;
+        background-color: #d4e2ff;
+        color: #5356fb;
+        border: none;
+        padding: 8px 20px;
+        border-radius: 6px;
+        cursor: pointer;
+    }
+
+    .open-btn:hover,
+    .download-btn:hover {
+        background-color: #bcc9ff;
+    }
+
+    /* Style for the container div */
+    .impdiv {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #f4f7ff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        margin: 30px 0;
+    }
+
+    /* Style for the form */
+    .generate {
+        background-color: white;
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 400px;
+    }
+
+    /* Style for the file input label */
+    .file-input-label {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #d4e2ff;
+        color: #5356fb;
+        padding: 15px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 16px;
+        text-align: center;
+        transition: background-color 0.3s ease;
+        border: 2px dashed #5356fb;
+    }
+
+    /* Hide the actual file input */
+    #fileInput {
+        display: none;
+    }
+
+    /* Style for the file input hover effect */
+    .file-input-label:hover {
+        background-color: #bcc9ff;
+    }
+
+    /* Style for the submit button */
+    #generate {
+        background-color: #5356fb;
+        color: white;
+        border: none;
+        padding: 12px 24px;
+        font-size: 16px;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    /* Hover effect for the submit button */
+    #generate:hover {
+        background-color: #4043d4;
+    }
+
+    /* Comparison section */
+    .compare {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+        background-color: #f4f7ff;
+    }
+
+    /* Panel style */
+    .panel {
+        display: flex;
+        justify-content: space-between; /* Space between images */
+        width: 100%;
+        max-width: 1000px; /* Limit the width */
+    }
+
+    /* Box for each image and label */
+    .imagesbox {
+        flex: 1 1 220px; /* Allow flexibility while maintaining minimum width */
+        margin: 10px; /* Space around images */
+        background-color: #87ceeb; /* White background for images */
+        border-radius: 8px; /* Rounded corners */
+        box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1); /* Slight shadow */
+        text-align: center; /* Center text */
+    }
+
+    /* Image style */
+    .photos {
+        padding: 10px; /* Padding around image */
+    }
+
+    /* Image styling */
+    .images img {
+        max-width: 100%; /* Responsive image */
+        height: auto; /* Maintain aspect ratio */
+        border-radius: 8px; /* Rounded corners for images */
+    }
+
+    /* Text style */
+    .text {
+        padding: 10px 0; /* Padding around text */
+        font-size: 16px; /* Text size */
+        color: #333; /* Darker text color */
+    }
+
+    /* Adjusting output text for better differentiation */
+    .text p {
+        font-weight: bold; /* Bold text for labels */
+        margin: 0; /* Remove default margin */
+    }
+
+
+    .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #fff;
+        padding: 15px 30px;
+        border-radius: 10px;
+        margin-top:10px;
+    }
+
+    .navbar-logo img {
+        width: 120px;
+        height: auto;
+    }
+
+    .navbar-links {
+        display: flex;
+        gap: 30px;
+        align-items: center;
+    }
+
+    .navbar-links a {
+        text-decoration: none;
+        font-size: 16px;
+        color: #5356fb;
+        font-weight: bold;
+        transition: color 0.3s;
+    }
+
+    .navbar-links a:hover {
+        color: #4043d4;
+    }
+
+    /* Adjust content padding to fit the navbar */
+    .container {
+        padding-top: 100px; /* Adjusted to ensure space for the navbar */
+    }
+</style>
+
+{% block content %}
+<body>
+    <nav class="navbar">
+        <div class="navbar-logo">
+            <img src="static/images/logo.png" alt="Logo">
+        </div>
+        <div class="navbar-links">
+            <a href="#home">Home</a>
+            <a href="#about">About</a>
+        </div>
+    </nav>
+    <br><br>
+    <div class="container">
+
+       
+        <!-- Header Section -->
+        <div class="header">
+            <div class="header-image">
+                <img src="static/images/satellite.jpeg" alt="Satellite"/>
+            </div>
+            <div class="header-content">
+                
+                <h1>SAR Image Colorization</h1>
+                <p>
+                    This user-friendly platform processes SAR images into three distinct formats: 
+                    a colorized image, a semantic segmentation image, and a road-river extraction image. 
+                    With advanced processing algorithms, it provides enhanced interpretability of SAR data, 
+                    unlocking valuable insights for diverse applications.
+                </p>
+            </div>
+            <div class="header-image">
+                <img src="static/images/satellite.jpeg" alt="Satellite"/>
+            </div>
+        </div>
+
+        <div class="impdiv">
+            <div class="generate">
+                <form id="upload-form" method="POST" action="" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="fileInput" class="file-input-label">
+                            <i class="fa-regular fa-image"></i>
+                            Select a satellite image
+                        </label>
+                        <input type="file" id="fileInput" name="file" accept="image/*">
+                    </div>
+                    <br>
+                    <div class="form-group text-center" style="margin-left:80px">
+                        <button id="generate" type="submit">Generate Colorization</button>
+                    </div>
+                </form>
+            </div>
+
+            {% if output_image_3 and output_image_1 and output_image_2 %}
+            <div class="compare">
+                <div class="panel">
+                    <div class="image-box" style="margin-left:20px "height="10">
+                        <h2>Original</h2>
+                        <img src="{{original_image_url}}" alt="SAR Image">
+                        
+                    </div>
+                </div>
+                    {% else %}
+                        <p></p>
+                    {% endif %}
+            
+            </div>
+
+            
+            </div>
+
+            <div class="compare">
+                <div class="panel">
+                    {% if output_image_3 and output_image_1 and output_image_2 %}
+                        <div class="image-box" style="margin-right:20px">
+                            <h2>Colorized</h2>
+                            <img src="{{ output_image_3 }}" alt="Colorized Image">
+                            <button class="download-btn">Download</button>
+                        </div>
+                        <div class="image-box" style="margin-right:20px">
+                            <h2>Semantic Segmented</h2>
+                            <img src="{{ output_image_1 }}" alt="Semantic Segmented Image">
+                            <button class="download-btn">Download</button>
+                        </div>
+                        <div class="image-box" style="margin-right:20px">
+                            <h2>Road-River Extraction</h2>
+                            <img src="{{ output_image_2 }}" alt="Road-River Extraction Image">
+                            <button class="download-btn">Download</button>
+                        </div>
+                    {% else %}
+                        <p></p>
+                    {% endif %}
+                </div>
+            </div>
+            
+    </div>
+</body>
+{% endblock %}
+</html>
